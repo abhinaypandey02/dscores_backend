@@ -10,11 +10,12 @@ import functions from "firebase-functions";
 import * as dotenv from 'dotenv';
 import express from 'express'
 import footballRouter from './routers/football.js'
+import cors from 'cors'
 dotenv.config();
 const app = express();
 import admin from 'firebase-admin';
 admin.initializeApp();
-
+app.use(cors({ origin: true }));
 
 app.use('/football',footballRouter);
 export default functions.https.onRequest(app);
