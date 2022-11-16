@@ -26,7 +26,8 @@ import {handleDataFetch} from "../helpers/handlers.js";
 const router = express.Router();
 
 router.get('/fixtures', async (req, res) => {
-    const data = await handleDataFetch(getFixtures, fetchRoute('https://v3.football.api-sports.io/fixtures?live=all'), setFixtures);
+    const status=req.query.status
+    const data = await handleDataFetch(getFixtures, fetchRoute('https://v3.football.api-sports.io/fixtures'+(status?`?status=${status}&next=15`:'?live=all')), setFixtures);
     res.json({data})
 })
 router.get('/lineups', async (req, res) => {

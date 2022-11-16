@@ -4,7 +4,7 @@ const calling = {}
 async function getFromFootballAPI(url) {
   if (calling[url]) return null
   calling[url] = true
-  console.log('FETCHING ->', url)
+  console.log('FETCHING ->', process.env.NEXT_PUBLIC_API_KEY)
   try {
     const response = await axios.get(url, {
       headers: {
