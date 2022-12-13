@@ -2,7 +2,7 @@ import functions from "firebase-functions";
 
 // // Create and Deploy Your First Cloud Functions
 
-const hours12Delete=['fixtures','events','lineups','predictions','']
+const hours12Delete=['fixtures','events','lineups','predictions']
 const hours24Delete=['leagues','players','squad','team','topScorers','trophies']
 
 import * as dotenv from 'dotenv';
@@ -17,12 +17,12 @@ admin.initializeApp();
 app.use(cors({ origin: '*' }));
 
 app.use('/football',footballRouter);
-exports.twelveDelete = functions.pubsub.schedule('every 12 hours').onRun((context) => {
-  hours12Delete.forEach(coll=>deleteCollection(coll))
+export const twelveDelete = functions.pubsub.schedule('every 12 hours').onRun((context) => {
+  hours12Delete.forEach(deleteCollection)
   return null;
 });
-exports.twentyFourDelete = functions.pubsub.schedule('every 24 hours').onRun((context) => {
-  hours24Delete.forEach(coll=>deleteCollection(coll))
+export const twentyFourDelete = functions.pubsub.schedule('every 24 hours').onRun((context) => {
+  hours24Delete.forEach(deleteCollection)
   return null;
 });
 export default functions.https.onRequest(app);
